@@ -1,4 +1,4 @@
-Cordova Plugin Template
+cordova-plugin-contactRingtone
 ======
 
-This is a simple starting point for building a Cordova plugin on iOS and Android.
+Plugin to set contact ringtones

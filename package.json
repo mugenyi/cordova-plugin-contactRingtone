@@ -1,12 +1,24 @@
 {
-  "name": "cordova-plugin-template",
+  "name": "cordova-plugin-contactringtone",
   "version": "1.0.0",
-  "cordova": {
-    "id": "cordova-plugin-template",
-    "platforms": [
-      "android",
-      "ios",
-    ]
+  "description": "a cordova plugin to asign a unique ringtone to a contact",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "description": "A starting point for a Cordova Plugin"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mugenyi/cordova-plugin-contactRingtone.git"
+  },
+  "keywords": [
+    "ringtone",
+    "contact",
+    "ringtone"
+  ],
+  "author": "mugenyi henry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mugenyi/cordova-plugin-contactRingtone/issues"
+  },
+  "homepage": "https://github.com/mugenyi/cordova-plugin-contactRingtone#readme"
 }
