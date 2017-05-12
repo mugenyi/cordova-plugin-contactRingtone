@@ -24,6 +24,10 @@
           <param name="onload" value="false" />
         </feature>
       </config-file>
+      <config-file target="AndroidManifest.xml" parent="/*">
+        <uses-permission android:name="android.permission.READ_CONTACTS" />
+        <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+      </config-file>
 
       <source-file src="src/android/ContactRingtone.java"  target-dir="src/cordova/plugins"  />
     </platform>
