@@ -44,11 +44,11 @@ public class ContactRingtone extends CordovaPlugin {
             String contact_id = args.getString(0);
             String ringtone_path = args.getString(1);
             this.context = this.cordova.getActivity().getApplicationContext();
-            
-            Int id =  Int.parseInt(contact_id);
+
+             int id = Integer.parseInt(contact_id);
 
             this.setTone(id,ringtone_path);
-            callbackContext.success("Ringtone set for: " + my_contact_id + " - " + phone_number + " - " + ringtone_path);
+            callbackContext.success("Ringtone set for contact");
             return true;
         }
 
@@ -75,7 +75,7 @@ public class ContactRingtone extends CordovaPlugin {
         localContentValues.put(ContactsContract.Data.RAW_CONTACT_ID, contactId);
         localContentValues.put(ContactsContract.Data.CUSTOM_RINGTONE, path);
         context.getApplicationContext().getContentResolver().update(localUri, localContentValues, null, null);
-        return true;
+      
 
     }
 
