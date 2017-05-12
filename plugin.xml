@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="cordova-plugin-contactRingtone"
+    version="1.0.0">
+    <name>cordova plugin contact ringtone</name>
+    <description>Set contact ringtone </description>
+    <license>MIT</license>
+    <keywords>ringtone, contact ringtone</keywords>
+    <repo>https://github.com/mugenyi/cordova-plugin-contactRingtone.git</repo>
+    <issue>https://github.com/mugenyi/cordova-plugin-contactRingtone/issues</issue>
+
+    <!-- android -->
+    <platform name="android">
+      <js-module src="www/plugin.js" name="plugin">
+        <runs/>
+
+        <!-- This is the window variable name you want, like window.MyCordovaPlugin -->
+        <clobbers target="contactRingtone" />
+      </js-module>
+      <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="ContactRingtone">
+          <param name="android-package" value="cordova.plugin.contactRingtone" />
+          <param name="onload" value="true" />
+        </feature>
+      </config-file>
+
+      <source-file src="src/android/ContactRingtone.java"  target-dir="src/cordova/plugins"  />
+    </platform>
+
+</plugin>
