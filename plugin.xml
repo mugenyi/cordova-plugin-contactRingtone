@@ -21,7 +21,7 @@
       <config-file target="res/xml/config.xml" parent="/*">
         <feature name="ContactRingtone">
           <param name="android-package" value="cordova.plugin.contactRingtone" />
-          <param name="onload" value="true" />
+          <param name="onload" value="false" />
         </feature>
       </config-file>
 

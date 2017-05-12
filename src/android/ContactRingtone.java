@@ -27,27 +27,16 @@ import java.util.Date;
 
 public class ContactRingtone extends CordovaPlugin {
 
-    Context context;
-
-    private static final String TAG = "ContactRingtone";
-
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-    super.initialize(cordova, webView);
-
-    Log.d(TAG, "Initializing ContactRingtone Plugin");
-  }
-
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ("set_ringtone".equals(action)) {
             String contact_id = args.getString(0);
             String ringtone_path = args.getString(1);
-            this.context = this.cordova.getActivity().getApplicationContext();
 
              int id = Integer.parseInt(contact_id);
 
-            this.setTone(id,ringtone_path);
+            this.setTone(id,ringtone_path,this.cordova.getActivity());
             callbackContext.success("Ringtone set for contact");
             return true;
         }
@@ -56,7 +45,7 @@ public class ContactRingtone extends CordovaPlugin {
         return false;
     }
 
-    public void setTone(int id, String path){
+    public void setTone(int id, String path,Context context){
 
 
         String[] PROJECTION = null;
@@ -75,7 +64,7 @@ public class ContactRingtone extends CordovaPlugin {
         localContentValues.put(ContactsContract.Data.RAW_CONTACT_ID, contactId);
         localContentValues.put(ContactsContract.Data.CUSTOM_RINGTONE, path);
         context.getApplicationContext().getContentResolver().update(localUri, localContentValues, null, null);
-      
+
 
     }
 
