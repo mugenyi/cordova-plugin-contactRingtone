@@ -1,11 +1,16 @@
 var exec = require('cordova/exec');
 
-var PLUGIN_NAME = 'ContactRingtone';
-
 var contactRingtone = {
-  setRingtone: function(contactId, phoneNumber, ringtonePath, success, error) {
-    exec(success, error, PLUGIN_NAME, 'set_ringtone', [contactId, ringtonePath]);
+  setRingtone: function(contactId, ringtonePath, successCallback, errorCallback) {
+    function onError(error) {
+      errorCallback(error);
+    }
+
+    function onSuccess(msg) {
+      successCallback(msg);
+    }
+    return exec(onSuccess, onError, "ContactRingtone", 'setRingtone', [contactId, ringtonePath]);
   }
-};
+}
 
 module.exports = contactRingtone;
