@@ -20,8 +20,7 @@
       </js-module>
       <config-file target="res/xml/config.xml" parent="/*">
         <feature name="ContactRingtone">
-          <param name="android-package" value="cordova.plugin.contactRingtone" />
-          <param name="onload" value="false" />
+          <param name="android-package" value="cordova.plugins.ContactRingtone" />
         </feature>
       </config-file>
       <config-file target="AndroidManifest.xml" parent="/*">
@@ -29,7 +28,7 @@
         <uses-permission android:name="android.permission.WRITE_CONTACTS" />
       </config-file>
 
-      <source-file src="src/android/ContactRingtone.java"  target-dir="src/cordova/plugins"  />
+      <source-file src="src/android/ContactRingtone.java"  target-dir="src/cordova/plugins"/>
     </platform>
 
 </plugin>
