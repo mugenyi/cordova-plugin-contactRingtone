@@ -1,5 +1,3 @@
-/**
- */
 package cordova.plugins;
 
 import org.apache.cordova.CallbackContext;
@@ -18,7 +16,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.widget.Toast;
 
 import android.util.Log;
 
@@ -28,16 +25,36 @@ import java.util.Date;
 public class ContactRingtone extends CordovaPlugin {
 
 
-    @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if ("set_ringtone".equals(action)) {
+@Override
+  public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
+
+
+
+        if (action.equals("setRingtone")) {
             String contact_id = args.getString(0);
-            String ringtone_path = args.getString(1);
+            String path = args.getString(1);
 
              int id = Integer.parseInt(contact_id);
 
-            this.setTone(id,ringtone_path,this.cordova.getActivity());
-            callbackContext.success("Ringtone set for contact");
+            String[] PROJECTION = null;
+
+            Uri contactData = ContactsContract.Contacts.CONTENT_URI;
+            String contactId = contactData.getLastPathSegment();
+
+            Cursor localCursor =    this.cordova.getActivity().getApplicationContext().getContentResolver().query(contactData, PROJECTION, null, null, null);
+            localCursor.move(id);
+
+            String str1 = localCursor.getString(localCursor.getColumnIndexOrThrow("_id"));
+            String str2 = localCursor.getString(localCursor.getColumnIndexOrThrow("display_name"));
+            Uri localUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, str1);
+            ContentValues localContentValues = new ContentValues();
+
+            localContentValues.put(ContactsContract.Data.RAW_CONTACT_ID, contactId);
+            localContentValues.put(ContactsContract.Data.CUSTOM_RINGTONE, path);
+            this.cordova.getActivity().getApplicationContext().getContentResolver().update(localUri, localContentValues, null, null);
+
+
+            callbackContext.success("Ringtone set for contact: "+str2);
             return true;
         }
 
@@ -45,27 +62,5 @@ public class ContactRingtone extends CordovaPlugin {
         return false;
     }
 
-    public void setTone(int id, String path,Context context){
-
-
-        String[] PROJECTION = null;
-
-        Uri contactData = ContactsContract.Contacts.CONTENT_URI;
-        String contactId = contactData.getLastPathSegment();
-
-        Cursor localCursor =    context.getApplicationContext().getContentResolver().query(contactData, PROJECTION, null, null, null);
-        localCursor.move(id/*CONTACT ID NUMBER*/);
-
-        String str1 = localCursor.getString(localCursor.getColumnIndexOrThrow("_id"));
-        String str2 = localCursor.getString(localCursor.getColumnIndexOrThrow("display_name"));
-        Uri localUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, str1);
-        ContentValues localContentValues = new ContentValues();
-
-        localContentValues.put(ContactsContract.Data.RAW_CONTACT_ID, contactId);
-        localContentValues.put(ContactsContract.Data.CUSTOM_RINGTONE, path);
-        context.getApplicationContext().getContentResolver().update(localUri, localContentValues, null, null);
-
-
-    }
 
 }
