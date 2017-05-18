@@ -31,22 +31,16 @@ public class ContactRingtone extends CordovaPlugin {
 
 
         if (action.equals("setRingtone")) {
-            String contact_id = args.getString(0);
+            String id = args.getString(0);
             String path = args.getString(1);
-
-             int id = Integer.parseInt(contact_id);
 
             String[] PROJECTION = null;
 
             Uri contactData = ContactsContract.Contacts.CONTENT_URI;
             String contactId = contactData.getLastPathSegment();
 
-            Cursor localCursor =    this.cordova.getActivity().getApplicationContext().getContentResolver().query(contactData, PROJECTION, null, null, null);
-            localCursor.move(id);
 
-            String str1 = localCursor.getString(localCursor.getColumnIndexOrThrow("_id"));
-            String str2 = localCursor.getString(localCursor.getColumnIndexOrThrow("display_name"));
-            Uri localUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, str1);
+            Uri localUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, id);
             ContentValues localContentValues = new ContentValues();
 
             localContentValues.put(ContactsContract.Data.RAW_CONTACT_ID, contactId);
@@ -54,7 +48,7 @@ public class ContactRingtone extends CordovaPlugin {
             this.cordova.getActivity().getApplicationContext().getContentResolver().update(localUri, localContentValues, null, null);
 
 
-            callbackContext.success("Ringtone set for contact: "+str2);
+            callbackContext.success("Ringtone set for contact");
             return true;
         }
 
